@@ -1,0 +1,32 @@
+{
+  "name": "tosijs-rooms",
+  "version": "0.1.0-alpha.0",
+  "description": "Realtime game rooms on a tosijs-platform host: make a room, share its code, relay messages between players.",
+  "license": "Apache-2.0",
+  "author": "Tonio Loewald",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "repository": { "type": "git", "url": "git+https://github.com/tonioloewald/tosijs-rooms.git" },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "bun tsc --noEmit",
+    "build": "rm -rf dist && bun build index.ts --target=browser --format=esm --sourcemap=linked --outdir=dist && bunx tsc -p tsconfig.build.json",
+    "check-bun": "node -e \"const w=require('fs').readFileSync('.bun-version','utf8').trim(),h=process.versions.bun||require('child_process').execSync('bun --version').toString().trim();if(w!==h){console.error('Bun '+h+' but .bun-version pins '+w);process.exit(1)}\"",
+    "prepublishOnly": "bun run check-bun && bun test && bun run typecheck && bun run build"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}
